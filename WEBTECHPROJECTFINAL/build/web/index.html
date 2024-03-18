@@ -1,0 +1,184 @@
+<!--
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>Semester Selection</title>
+</head>
+<body>
+    <div class="container">
+        <form action="SemesterServlet" method="post">
+            <label for="semester">Select Semester:</label>
+            <select id="semester" name="semester">
+                <option value="101">Semester 1</option>
+                <option value="102">Semester 2</option>
+                <option value="103">Semester 3</option>
+                <option value="104">Semester 4</option>
+                <option value="105">Semester 5</option>
+                <option value="106">Semester 6</option>
+                <option value="107">Semester 7</option>
+                <option value="108">Semester 8</option>
+            </select>
+            <br/>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Planner</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(to bottom, #1a237e, #000000);
+            overflow: hidden;
+            color: #fff;
+        }
+
+        .container {
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+        }
+
+        .header {
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: #1a237e;
+        }
+
+        .form {
+            width: 350px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .label {
+            display: block;
+            margin-bottom: 15px;
+            color: #1a237e;
+        }
+
+        .input {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+
+        #toggleButtonContainer {
+            margin-top: 20px;
+        }
+
+        #cgpaContainer {
+            text-align: center;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            margin-top: 30px;
+            border: 1px solid #ccc; /* Border added */
+            display: none; /* Initially hide the CGPA container */
+        }
+
+        #cgpaInnerContainer {
+            color: black; /* Set color to black */
+        }
+
+        #cgpaLabel {
+            font-size: 24px;
+            color: #1a237e;
+        }
+
+        #cgpaValue {
+            font-size: 28px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">Student Planner</div>
+    <form class="form" action="SemesterServlet" method="post">
+        <label class="label" for="semester">Select Semester:</label>
+        <select class="input" id="semester" name="semester">
+            <option value="101">Semester 1</option>
+            <option value="102">Semester 2</option>
+            <option value="103">Semester 3</option>
+            <option value="104">Semester 4</option>
+            <option value="105">Semester 5</option>
+            <option value="106">Semester 6</option>
+            <option value="107">Semester 7</option>
+            <option value="108">Semester 8</option>
+        </select>
+        <input class="button" type="submit" value="Submit">
+    </form>
+
+    <div id="toggleButtonContainer">
+        <button class="button" onclick="toggleCGPA()">Cumulative Grade Point Average</button>
+    </div>
+
+    <div id="cgpaContainer">
+        <div id="cgpaInnerContainer">
+            <div id="cgpaLabel">Cumulative Grade Point Average (CGPA):</div>
+            <div id="cgpaValue">9.0</div> <!-- Replace with dynamic value from your database -->
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleCGPA() {
+        var cgpaContainer = document.getElementById("cgpaContainer");
+        cgpaContainer.style.display = (cgpaContainer.style.display === "none") ? "block" : "none";
+    }
+</script>
+
+<script>
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            document.getElementById("cgpaInnerContainer").innerHTML = xhr.responseText;
+        }
+    };
+    xhr.open("GET", "CGPAServlet", true);
+    xhr.send();
+</script>
+
+</body>
+</html>
